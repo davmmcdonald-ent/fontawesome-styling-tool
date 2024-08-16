@@ -1,18 +1,36 @@
 $(document).ready(function() {
+    function applyColorToSVG() {
+        var color = $('#color').val();
+        $('#render svg path').attr('fill', color);
+    }
+
     function renderIcon() {
         var iconClass = $('#icon').val();
         var styleClass = $('#style').val();
         var size = $('#size').val();
-        var color = $('#color').val();
 
         // Render the icon as an <i> element with the correct class format
         $('#render').html('<i class="' + styleClass + ' ' + iconClass + '" style="width:' + size + 'px;"></i>');
 
-        // Add a brief timeout to allow FontAwesome to convert the <i> to <svg>
+        // Check immediately if the SVG has already been rendered
         setTimeout(function() {
-            // Apply the fill color to the <path> inside the converted <svg>
-            $('#render svg path').attr('fill', color);
-        }, 100); // 100ms delay should be sufficient
+            if ($('#render svg').length > 0) {
+                applyColorToSVG();
+            } else {
+                // Use MutationObserver to detect when the SVG is fully loaded
+                const observer = new MutationObserver(function(mutationsList, observer) {
+                    for (let mutation of mutationsList) {
+                        if (mutation.type === 'childList' && $('#render svg').length > 0) {
+                            applyColorToSVG();
+                            observer.disconnect(); // Stop observing once the SVG has loaded
+                        }
+                    }
+                });
+
+                // Start observing the render div for changes
+                observer.observe(document.getElementById('render'), { childList: true });
+            }
+        }, 0);
     }
 
     // Initial render
