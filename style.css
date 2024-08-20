@@ -68,7 +68,7 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: calc(100vh - 60px); /* Adjust for toolbar height and padding */
+	height: calc(100vh - 72px); /* Adjust for toolbar height and padding */
 	background-color: #f0f0f0;
 }
 
