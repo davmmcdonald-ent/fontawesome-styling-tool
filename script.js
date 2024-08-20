@@ -1,9 +1,32 @@
 $(document).ready(function() {
+    let iconList = [];
+
+    // Fetch FontAwesome icons list from the local icons.json file
+    $.getJSON('icons.json', function(data) {
+        iconList = Object.keys(data);  // Extract icon names from the JSON data
+        setupAutocomplete();           // Initialize the autocomplete once icons are loaded
+    });
+
+    // Setup autocomplete for the icon input field
+    function setupAutocomplete() {
+        $('#icon').autocomplete({
+            source: iconList,   // Pass the list of icons as the source for autocomplete
+            minLength: 2,       // Minimum number of characters to trigger autocomplete
+            select: function(event, ui) {
+                // When an icon is selected from autocomplete, update the input
+                $('#icon').val(ui.item.value);
+                renderIcon();    // Render the selected icon
+                return false;
+            }
+        });
+    }
+
+    // Render the selected icon
     function renderIcon() {
         const icon = $('#icon').val();
         const style = $('#style').val();
         
-        const iconHtml = `<i class="${style} ${icon}"></i>`;
+        const iconHtml = `<i class="${style} fa-${icon}"></i>`;
         $('.render').html(iconHtml);
 
         setTimeout(updateAttributes, 500);
