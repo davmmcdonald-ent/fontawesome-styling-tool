@@ -1,74 +1,77 @@
-* {
+/* General settings */
+html {
+	font-size: 62.5%; /* 1rem = 10px */
+}
+
+body {
+	font-family: "Open Sans", sans-serif;
+	font-size: 1.4rem; /* 14px */
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 }
 
-html {
-	font-size: 62.5%;
-}
-
-body {
-	display: flex;
-	flex-direction: column;
-	min-height: 100vh;
-	background-color: #eeeeee;
-	font-family: "Open Sans", sans-serif;
-	font-size: 1.4rem;
-}
-
+/* Toolbar styling */
 .toolbar {
+	background-color: #000000;
+	padding: 12px 24px; /* 12px top/bottom, 24px left/right */
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 12px 32px;
-	background-color: #333333;
-	color: #ffffff;
 }
 
-.toolbar__input-group {
+.toolbar__group {
 	display: flex;
 	align-items: center;
-	flex-wrap: wrap;
 }
 
 .toolbar__label {
-	margin-right: 8px;
+	margin-right: 8px; /* 8px space between label and input */
+	font-weight: bold;
+	color: #ffffff; /* White text for labels */
 }
 
 .toolbar__input {
+	height: 28px;
 	margin-right: 24px;
 	padding: 0 8px;
-	height: 28px;
-	border: none;
-	outline: none;
+	font-size: 1.4rem; /* 14px */
+	border: 1px solid #cccccc;
 	border-radius: 4px;
 }
 
 .toolbar__button {
 	height: 28px;
 	padding: 0 32px;
-	background-color: #00bfff;
+	background-color: #dddddd;
 	border: none;
-	outline: none;
-	font-weight: bold;
 	border-radius: 4px;
+	font-weight: bold;
+	font-size: 1.4rem; /* 14px */
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	margin-left: 8px; /* 8px space between buttons */
 }
 
+.toolbar__button:first-child {
+	margin-left: 0; /* No left margin on the first button */
+}
+
+.toolbar__button:hover {
+	background-color: #bbbbbb;
+}
+
+/* Render div styling */
 .render {
 	flex: 1;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	height: calc(100vh - 60px); /* Adjust for toolbar height and padding */
+	background-color: #f0f0f0;
 }
 
-.render svg {
-	height: auto !important;
-}
-
-.toolbar__button-group {
-	display: flex;
-	align-items: center;
-	flex-wrap: wrap;
-	gap: 8px;
+#size-label,
+#border-radius-label {
+	cursor: ew-resize !important;
 }

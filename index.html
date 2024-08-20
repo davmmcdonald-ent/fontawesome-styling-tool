@@ -3,53 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Icon Tool for Stephanie</title>
+    <title>FontAwesome Styling Tool</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="script.js"></script>
     <script src="https://kit.fontawesome.com/a9eaf61b16.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
 </head>
 <body>
     <div class="toolbar">
-        <div class="toolbar__input-group">
+        <div class="toolbar__group">
             <label for="icon" class="toolbar__label">Icon</label>
-            <input type="text" id="icon" name="icon" class="toolbar__input" value="fa-lightbulb-on" maxlength="50">
-        
+            <input type="text" id="icon" class="toolbar__input toolbar__input--text" placeholder="fa-lightbulb-on" value="fa-piggy-bank">
+
             <label for="style" class="toolbar__label">Style</label>
-            <select id="style" name="style" class="toolbar__input">
+            <select id="style" class="toolbar__input toolbar__input--dropdown">
                 <option value="fa-solid">Solid</option>
                 <option value="fa-regular">Regular</option>
                 <option value="fa-light" selected>Light</option>
                 <option value="fa-thin">Thin</option>
             </select>
-        
-            <label for="size" class="toolbar__label">Size</label>
-            <input type="number" id="size" name="size" class="toolbar__input" value="64" min="8" max="256">
-        
+
+            <label id="size-label" for="size" class="toolbar__label">Size</label>
+            <input type="number" id="size" class="toolbar__input toolbar__input--number" min="8" max="512" value="80">
+
             <label for="color" class="toolbar__label">Color</label>
-            <input type="color" id="color" name="color" class="toolbar__input" value="#000000">
-        
-            <!-- <label for="shape" class="toolbar__label">Shape</label>
-            <select id="shape" name="shape" class="toolbar__input">
-                <option value="none">None</option>
+            <select id="color" class="toolbar__input toolbar__input--dropdown">
+                <option value="#a91523" selected>Ent Red (#a91523)</option>
+                <option value="#1125a9">Ent Blue (#1125a9)</option>
+                <option value="#fec830">Ent Yellow (#fec830)</option>
+                <option value="#fc4c02">Broncos Orange (#fc4c02)</option>
+                <option value="#0a2343">Broncos Blue (#0a2343)</option>
+                <option value="#000000">Black (#000000)</option>
+                <option value="#ffffff">White (#ffffff)</option>
+                <option value="custom">Custom</option>
+            </select>            
+
+            <input type="color" id="custom-color" class="toolbar__input toolbar__input--color">
+
+            <label for="shape" class="toolbar__label">Shape</label>
+            <select id="shape" class="toolbar__input toolbar__input--dropdown">
+                <option value="none" selected>None</option>
                 <option value="square">Square</option>
                 <option value="circle">Circle</option>
             </select>
-        
-            <label for="shape-color" class="toolbar__label">Shape Color</label>
-            <input type="color" id="shape-color" name="shape-color" class="toolbar__input" value="#dddddd">
-        
-            <label for="border-radius" class="toolbar__label">Border Radius</label>
-            <input type="number" id="border-radius" name="border-radius" class="toolbar__input" value="8" min="0" max="50"> -->
+
+            <label id="border-radius-label" for="border-radius" class="toolbar__label">Border Radius</label>
+            <input type="number" id="border-radius" class="toolbar__input toolbar__input--number" min="2" max="512" value="4">
         </div>
-        <div class="toolbar__button-group">
-            <button class="toolbar__button toolbar__button--svg">Download SVG</button>
-            <button class="toolbar__button toolbar__button--png">Download PNG</button>
+
+        <div class="toolbar__group">
+            <button class="toolbar__button toolbar__button--download">Download SVG</button>
+            <button class="toolbar__button toolbar__button--download">Download PNG</button>
         </div>
-    </div>    
-    <div id="render" class="render"></div>
+    </div>
+
+    <div class="render">
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
