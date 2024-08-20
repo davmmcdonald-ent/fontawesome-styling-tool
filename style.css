@@ -23,6 +23,7 @@ body {
 .toolbar__group {
 	display: flex;
 	align-items: center;
+	flex-wrap: wrap;
 }
 
 .toolbar__label {
