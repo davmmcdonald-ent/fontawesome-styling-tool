@@ -153,7 +153,7 @@ $(document).ready(function() {
         const svgUrl = URL.createObjectURL(svgBlob);
         const downloadLink = document.createElement('a');
         downloadLink.href = svgUrl;
-        downloadLink.download = 'icon.svg';
+        downloadLink.download = `${icon}.svg`;
         document.body.appendChild(downloadLink);
         downloadLink.click();
         document.body.removeChild(downloadLink);
@@ -182,7 +182,7 @@ $(document).ready(function() {
             const imgURI = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
             const downloadLink = document.createElement('a');
             downloadLink.href = imgURI;
-            downloadLink.download = 'icon.png';
+            downloadLink.download = `${icon}.png`;
             document.body.appendChild(downloadLink);
             downloadLink.click();
             document.body.removeChild(downloadLink);
