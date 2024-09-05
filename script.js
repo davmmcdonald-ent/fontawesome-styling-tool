@@ -27,13 +27,13 @@ $(document).ready(function() {
         const style = $('#style').val();
         
         const iconHtml = `<i class="${style} fa-${icon}"></i>`;
-        $('.render').html(iconHtml);
+        $('#render').html(iconHtml);
 
         setTimeout(updateAttributes, 500);
     }
 
     function updateAttributes() {
-        const svg = $('.render svg').first();
+        const svg = $('#render svg').first();
         const size = $('#size').val();
         const color = $('#color').val();
         const customColor = $('#custom-color').val();
@@ -108,15 +108,15 @@ $(document).ready(function() {
         const shape = $('#shape').val();
 
         if (color !== 'custom') {
-            $('#custom-color').hide();
+            $('#custom-color').parent().hide();
         } else {
-            $('#custom-color').show();
+            $('#custom-color').parent().show();
         }
 
         if (shape !== 'square') {
-            $('#border-radius, #border-radius-label').hide();
+            $('#border-radius, #border-radius-label').parent().hide();
         } else {
-            $('#border-radius, #border-radius-label').show();
+            $('#border-radius, #border-radius-label').parent().show();
         }
     }
 
@@ -148,7 +148,16 @@ $(document).ready(function() {
     }
 
     function downloadSVG() {
-        const svgData = new XMLSerializer().serializeToString($('.render svg')[0]);
+        // Get the current value of the icon and size input fields
+        const icon = $('#icon').val();
+        const svgElement = $('#render svg')[0];
+    
+        if (!icon || !svgElement) {
+            alert("Please select an icon before downloading.");
+            return;
+        }
+    
+        const svgData = new XMLSerializer().serializeToString(svgElement);
         const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
         const svgUrl = URL.createObjectURL(svgBlob);
         const downloadLink = document.createElement('a');
@@ -158,27 +167,35 @@ $(document).ready(function() {
         downloadLink.click();
         document.body.removeChild(downloadLink);
     }
-
+    
     function downloadPNG() {
-        const svgElement = $('.render svg')[0];
+        // Get the current value of the icon and size input fields
+        const icon = $('#icon').val();
+        const svgElement = $('#render svg')[0];
+        const size = parseInt($('#size').val(), 10);
+    
+        if (!icon || !svgElement || !size) {
+            alert("Please select an icon and set the size before downloading.");
+            return;
+        }
+    
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
-        const size = parseInt($('#size').val(), 10);
-
+    
         // Set canvas dimensions
         canvas.width = size;
         canvas.height = size;
-
+    
         // Create an image object
         const img = new Image();
         const svgData = new XMLSerializer().serializeToString(svgElement);
         const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
         const url = URL.createObjectURL(svgBlob);
-
+    
         img.onload = function() {
             ctx.drawImage(img, 0, 0, size, size);
             URL.revokeObjectURL(url);
-
+    
             const imgURI = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
             const downloadLink = document.createElement('a');
             downloadLink.href = imgURI;
@@ -187,12 +204,12 @@ $(document).ready(function() {
             downloadLink.click();
             document.body.removeChild(downloadLink);
         };
-
+    
         img.src = url;
-    }
+    }    
 
     $('#icon, #style').on('change', renderIcon);
-    $('#size, #color, #custom-color, #shape, #border-radius').on('change', function() {
+    $('#size, #color, #custom-color, #shape, #border-radius').on('input change', function() {
         updateAttributes();
         toggleInputs();
     });
